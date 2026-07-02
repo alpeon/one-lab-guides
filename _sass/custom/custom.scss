@@ -1,0 +1,16 @@
+// change the sidebar behavior 
+.side-bar {
+  @include mq(lg) {
+    width: calc((70% - #{$nav-width + $content-width}) / 2 + #{$nav-width});
+  }
+}
+
+// add border to images
+.main-content {
+  img {
+    border: 2px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; 
+  }
+}
+
