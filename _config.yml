@@ -4,7 +4,7 @@ favicon_ico: "assets/common/favicon.png"
 description: Step-by-step OpenNebula Lab instructions
 remote_theme: just-the-docs/just-the-docs
 baseurl: ""
-url: "https://alpeon.github.io"
+url: ""
 back_to_top: true
 back_to_top_text: "Up!"
 color_scheme: ons
