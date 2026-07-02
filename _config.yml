@@ -3,8 +3,8 @@ logo: "assets/common/logo.png"
 favicon_ico: "assets/common/favicon.png"
 description: Step-by-step OpenNebula Lab instructions
 remote_theme: just-the-docs/just-the-docs
-baseurl: ""
-url: "opennebula.github.io/one-lab-guides"
+baseurl: "/one-lab-guides"
+url: "opennebula.github.io"
 back_to_top: true
 back_to_top_text: "Up!"
 color_scheme: ons
