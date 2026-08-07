@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Lab 2 - Custom Probes
+title: Lab 3 - Custom Probes
 parent: Module 4 - Hosts
 ---
 # Module 4 - Lab 2: Custom Probes

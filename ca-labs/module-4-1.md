@@ -23,7 +23,6 @@ parent: Module 4 - Hosts
 - Add a Host using Sunstone.
 - Add a Host using Command Line.
 
-
 # Add a Host using Sunstone.
 
 ## 4.1.1
@@ -43,7 +42,7 @@ Press **Create** button to launch the **Create Host** wizard.
 
 Set the **Hypervisor** to **QEMU**.
 
-**Make sure to substitute 2022 with your unique Lab ID.**
+**Make sure to substitute 2104 with your unique Lab ID.**
 
 <img src="./../assets/ca-images/module4_lab1/s3.png">
 
@@ -71,7 +70,7 @@ Add a host using the **onehost** command.
 Make sure to use your Lab ID!
 
 ```console
-onehost create -i qemu -v qemu lab-2022-node3
+onehost create -i qemu -v qemu lab-2104-node3
 ID: 3
 ```
 ## 4.1.7
@@ -81,11 +80,11 @@ List all your hosts using the **onehost** command.
 ```console
 onehost list
 
-ID NAME            CLUSTER    TVM      ALLOCATED_CPU      ALLOCATED_MEM STAT
-3 lab-2022-node3   default      0       0 / 200 (0%)     0K / 3.8G (0%) on
-2 lab-2022-node2   default      0       0 / 200 (0%)     0K / 3.8G (0%) on
-1 35.159.249.245   default      1     50 / 200 (25%)  512M / 3.8G (13%) on
-0 18.153.100.94    default      0       0 / 200 (0%)     0K / 3.8G (0%) on
+ ID NAME               CLUSTER    TVM      ALLOCATED_CPU      ALLOCATED_MEM STAT
+   3 lab-2104-node3    default      0       0 / 200 (0%)     0K / 3.8G (0%) on
+   2 lab-2104-node2    default      0       0 / 200 (0%)     0K / 3.8G (0%) on
+   1 3.71.98.41        default      0       0 / 200 (0%)     0K / 3.8G (0%) on
+   0 3.70.192.24       default      0       0 / 200 (0%)     0K / 3.8G (0%) on
 ```
 
 If your host is in the **int** state - run **top** subcommand to observe the transition from int ot on. 
@@ -104,7 +103,7 @@ Use **onehost show** command to print the information about the host
 onehost show lab-X-node3
 HOST 7 INFORMATION                                                              
 ID                    : 3                   
-NAME                  : lab-2022-node3       
+NAME                  : lab-2104-node3       
 CLUSTER               : default             
 STATE                 : MONITORED           
 IM_MAD                : qemu                
