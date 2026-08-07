@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Lab 3 - Host Management
+title: Lab 4 - Host Management
 parent: Module 4 - Hosts
 ---
 # Module 4 - Lab 3: Host Management
