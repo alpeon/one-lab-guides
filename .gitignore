@@ -1,7 +1,8 @@
 docker-compose.yaml
 docker-compose.yml
 Gemfile
-Gemfile.local
+Gemfile.lock
 .jekyll-cache/*
 _site/*
 .sass-cache/*
+__config.yml
