@@ -1,2 +1,6 @@
 docker-compose.yaml
 docker-compose.yml
+Gemfile
+Gemfile.local
+.jekyll-cache/*
+_site/*
