@@ -5,4 +5,4 @@ Gemfile.lock
 .jekyll-cache/*
 _site/*
 .sass-cache/*
-__config.yml
+_config.yml
