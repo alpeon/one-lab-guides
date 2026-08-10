@@ -20,85 +20,56 @@ parent: Module 5 - Storage
 
 ## Objective(-s):
 
-- Enroll SSH Public Key to the Backup Server.
 - Create a Backup (Restic) datastore.
 
 
-# Enroll the SSH Public Key to the Backup Server.
+# Create a Backup (Restic) datastore.
+
+{: .warning}
+> Please note that in this lab environment the **Frontend** node is acting as the backup server. In a real-life scenario the backup server must be on a separate node! **Therefore you don't need to make sure that the backup server is reachable!**
 
 ## 5.3.1
 
-Connect to the Node 1's Command 
+Press the **Create Datastore** to start the process.
 
-Copy the Public Key from the Host 1 to the Backup Server. Please **note the username on the Backup Server!**
-
-You are going to be prompted to enter the password!
-
-```console
-ssh-copy-id backup-admin@<your backup server IP>
-/usr/bin/ssh-copy-id: INFO: Source of key(s) to be installed: "/var/lib/one/.ssh/id_rsa.pub"
-/usr/bin/ssh-copy-id: INFO: attempting to log in with the new key(s), to filter out any that are already installed
-/usr/bin/ssh-copy-id: INFO: 1 key(s) remain to be installed -- if you are prompted now it is to install the new keys
-backup-admin@<your backup server IP>'s password:
-
-Number of key(s) added: 1
-
-Now try logging into the machine, with:   "ssh 'backup-admin@<your backup server IP>'"
-and check to make sure that only the key(s) you wanted were added.
-```
+<img src="./../assets/ca-images/module5_lab3/s1.png">
 
 ## 5.3.2
 
-Open the **Sunstone** interface and navigate to **Storage -> Datastores**.
+Set the **Datastore type** to **BACKUP** and the **Storage backend** to **Backup-Restic**.
+
+You can name the datastore the way you wish.
 
 <img src="./../assets/ca-images/module5_lab3/s2.png">
 
 ## 5.3.3
 
-Press **Create** to start the wizard.
+Set the cluster to **default**. 
 
 <img src="./../assets/ca-images/module5_lab3/s3.png">
 
 ## 5.3.4
 
-Set the **Datastore Type** to **Backup**.
+There are three important fields to configure:
 
-From the **Storage backend** drop-down list select **Backup - Restic**.
-
-Name it the way you wish, however in this guide we're going to refer as **restic-ds**.
+- Set the **Restic password** to any value. This value will be used to encrypt the data at rest. 
+- Set the **Restic SFTP server** to **lab-X-node1** where X is your unique Lab ID.
+- Set the **Restic SFTP user** to **oneadmin**.
 
 <img src="./../assets/ca-images/module5_lab3/s4.png">
 
 ## 5.3.5
 
-On the **Select Cluster** page choose the **default** cluster.
+Leave **Custom Variables** as is and finish the process.
 
 <img src="./../assets/ca-images/module5_lab3/s5.png">
 
+
 ## 5.3.6
 
-Set the **Restic SFTP user** to **backup-admin**.
-
-Fill the **Restic SFTP server** field with **the IP address of your backup server host!**
-
-And set the **Restic password** to a value, that will be used to encrypt backups at rest.
+You shold end up with another datastore added. Refresh the page and make sure it is monitored and the disk space metrics are gathered! 
 
 <img src="./../assets/ca-images/module5_lab3/s6.png">
-
-
-## 5.3.7
-
-Leave the **Custom Variables** as is and press **Finish**. 
-
-<img src="./../assets/ca-images/module5_lab3/s7.png">
-
-
-## 5.3.8
-
-If you completed the actions correctly, you will see the new datastore tagged with the **BACKUP** tag.
-
-<img src="./../assets/ca-images/module5_lab3/s8.png">
-
 
 # Congratulations, you've completed the assignment!
 {: .no_toc}
