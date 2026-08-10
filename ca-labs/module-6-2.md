@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Lab 2 - Security Groups
+title: Lab 2 - Virtual Network Usage
 parent: Module 6 - Virtual Networks
 ---
 # Module 5 - Lab 2 : Security Groups
@@ -22,7 +22,9 @@ parent: Module 6 - Virtual Networks
 - Create a Security Group.
 - Attach the Security Group to the Isolated Virtual Network.
 
-    
+
+# Create a Security Group.
+
 ## 6.2.1
 
 Navigate to **Networks -> Security Groups**. 
@@ -32,7 +34,7 @@ Navigate to **Networks -> Security Groups**.
     
 ## 6.2.2
 
-Press the **Create** button to add a new **Security group**.
+Press the **Create Security Group** button to add a new **Security group**.
 
 <img src="./../assets/ca-images/module6_lab2/s2.png">
 
@@ -53,7 +55,7 @@ Add a new **Outbound** Rule with the settings as seen below.
     
 ## 6.2.5
 
-Add another Rule. This time it's the **Inbound** rule to allow MySQL TCP traffic from **isolated**.
+Add another Rule. This time it's the **Inbound** rule to allow MySQL **3306/tcp** traffic from **isolated**.
 
 <img src="./../assets/ca-images/module6_lab2/s5.png">
 
@@ -67,11 +69,11 @@ Add another **Inbound** rule. This time allow traffic targeting the port **22/tc
     
 ## 6.2.7
 
-Add another **Inbound** rule. This time allow traffic to 5000/tcp from the **isolated** network.
+Add another **Inbound** rule. This time allow traffic to **5000/tcp** from the **isolated** network.
 
 <img src="./../assets/ca-images/module6_lab2/s7.png">
 
-#### 5.2.8
+## 6.2.8
 
 Verify that you have the rules added and press **Finish** to add the **Security Group**.
 
@@ -83,19 +85,31 @@ Enable **Other** users to **Use** the newly created Security Group.
 
 <img src="./../assets/ca-images/module6_lab2/s9.png">
 
-    
+# Attach the Security Group to the Isolated Virtual Network.
+
 ## 6.2.10
 
-Select the **isolated** Virtual Network and press the **Update** button. 
+Select the **isolated-vnet** Virtual Network and go to the **Security groups** tab. 
 
 <img src="./../assets/ca-images/module6_lab2/s10.png">
 
-    
 ## 6.2.11
 
-Add the **App Group** and then remove the **default group**, then press **Finish**.
+Press the **Select Security Group** button.
 
 <img src="./../assets/ca-images/module6_lab2/s11.png">
+
+## 6.2.12
+
+Add the **App Group** and then press **Continue**.
+
+<img src="./../assets/ca-images/module6_lab2/s12.png">
+
+## 6.2.13
+
+You should end up having only the **App Group** security group attached to the **isolated-vnet** virtual network.
+
+<img src="./../assets/ca-images/module6_lab2/s12.png">
     
 ### Congratulations, you've completed the assignment!
 {: .no_toc}
