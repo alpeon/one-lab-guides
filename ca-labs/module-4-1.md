@@ -71,6 +71,11 @@ Make sure to use your Lab ID!
 
 ```console
 onehost create -i qemu -v qemu lab-2104-node3
+```
+
+he unqiue ID of a host will be printed into the console.
+
+```console
 ID: 3
 ```
 ## 4.1.7
@@ -79,7 +84,9 @@ List all your hosts using the **onehost** command.
 
 ```console
 onehost list
+```
 
+```console
  ID NAME               CLUSTER    TVM      ALLOCATED_CPU      ALLOCATED_MEM STAT
    3 lab-2104-node3    default      0       0 / 200 (0%)     0K / 3.8G (0%) on
    2 lab-2104-node2    default      0       0 / 200 (0%)     0K / 3.8G (0%) on
@@ -101,6 +108,9 @@ Use **onehost show** command to print the information about the host
 
 ```console
 onehost show lab-X-node3
+```
+
+```console
 HOST 7 INFORMATION                                                              
 ID                    : 3                   
 NAME                  : lab-2104-node3       

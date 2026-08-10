@@ -31,6 +31,8 @@ parent: Module 3 - Sunstone
 
 From the Node 1's Command Line login as root and go to the views directory.
 
+**Please note that you can't switch to root directly from oneadmin user. You must exit to the ubuntu user first!**
+
 ```console
 sudo su
 cd /etc/one/fireedge/sunstone/views/
@@ -49,8 +51,10 @@ Enter the newly created view directory and remove the oneks view.
 ```console
 cd custom/
 rm -f oneks-tab.yaml
-
 ls -lh
+```
+
+```console
 total 48K
 -rw-r--r-- 1 root root  885 Aug  7 13:07 backup-tab.yaml
 -rw-r--r-- 1 root root  490 Aug  7 13:07 dashboard-tab.yaml
@@ -85,7 +89,7 @@ views:
         description: "A User view without OneKS"
 ```
 
-# Update the "attendees" to use the custom view.
+# Update the "cloud-users" to use the custom view.
 
     
 ## 3.1.4

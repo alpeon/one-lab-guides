@@ -27,7 +27,7 @@ parent: Module 4 - Hosts
 
 ## 4.2.1
 
-From Node 1's Command Line connect to the Node 2
+As **oneadmin** ssh to Node 2 from Node 1.
 
 ```console
 ssh lab-X-node2
@@ -37,6 +37,9 @@ Inspect the probes directory.
 
 ```console
 ls -lh /var/tmp/one/im/qemu-probes.d/
+```
+
+```console
 total 8.0K
 drwxr-x--- 5 oneadmin oneadmin 4.0K Aug 16 08:32 host
 drwxr-x--- 5 oneadmin oneadmin 4.0K Aug 16 08:32 vm
@@ -54,6 +57,9 @@ Now try to run this probe manually
 
 ```console
 /var/tmp/one/im/qemu-probes.d/host/system/cpu.sh
+```
+
+```console
 MODELNAME="Intel(R) Xeon(R) CPU E5-2686 v4 @ 2.30GHz"
 ```
 
@@ -61,7 +67,9 @@ MODELNAME="Intel(R) Xeon(R) CPU E5-2686 v4 @ 2.30GHz"
 
 ## 4.2.3
 
-Go back to Node 1's Command Line and clone the repository and copy the file.
+Go back to Node 1's Command Line and make sure you are logeed in as **oneadmin**.
+
+Clone the repository.
 
 ```console
 export REPO='https://github.com/OpenNebula/one-training-files.git'
@@ -73,7 +81,9 @@ git sparse-checkout set Probes
 git checkout
 cd Probes
 ls -lh
+```
 
+```console
 total 4.0K
 -rw-rw-r-- 1 oneadmin oneadmin 133 Aug 19 10:29 host_mode.py
 ```
@@ -86,10 +96,15 @@ chmod +x ~/remotes/im/qemu-probes.d/host/system/host_mode.py
 ```
 ## 4.2.4
 
-Sync all the hosts.
+Execute the **sync** command.
 
 ```console
 onehost sync --force
+```
+
+Wait until all hosts are in sync. 
+
+```console
 * Adding lab-2022-node3 to upgrade
 * Adding lab-2022-node2 to upgrade
 * Adding 3.74.228.185 to upgrade
@@ -100,10 +115,16 @@ All hosts updated successfully.
 
 ## 4.2.5
 
+{: .note}
+> It may take from 3 to 5 minutes to gather this metric. Feel free to proceed with the [Module 4 - Lab 4](/ca-labs/module-4-4.html) and return to this later.
+
 Run onehost show command on one of the hosts and check the **Monitoring** section and look for **MODE** parameter. It should show either PROD,TEST or DEV.
 
 ```console
 onehost show 2
+```
+
+```console
 Node 2 INFORMATION                                                              
 ID                    : 2                   
 NAME                  : lab-X-node2       

@@ -96,10 +96,11 @@ Switch to the Node 1's Command Line.
 
 Use **oneuser** to list current users and make sure **attendees-admin** is listed.
 
-
 ```console
 oneuser list
+```
 
+```console
  ID NAME              ENAB GROUP    AUTH           VMS          MEMORY        CPU       PCI
    3 cloud-admin      yes  cloud-us core       0 /   -     0M /      -  0.0 /   -   0 /   -
    2 one              yes  oneadmin core       0 /   -     0M /      -  0.0 /   -   0 /   -
@@ -114,6 +115,11 @@ Create a new user with the name **cloud-user** adn add to the newly created grou
 
 ```console
 oneuser create 'cloud-user' 'Pa$$w0rd' --group 100
+```
+
+You supposed to get the ID of a new user as an iutput.
+
+```console
 ID: 4
 ```
 
@@ -121,7 +127,9 @@ List users and verify that the new user has been created.
 
 ```console
 oneuser list
+```
 
+```console
   ID NAME             ENAB GROUP    AUTH           VMS          MEMORY        CPU       PCI
    4 cloud-user       yes  cloud-us core       0 /   -     0M /      -  0.0 /   -   0 /   -
    3 cloud-admin      yes  cloud-us core       0 /   -     0M /      -  0.0 /   -   0 /   -
@@ -145,7 +153,9 @@ Verify that the umask was set to the correct one.
 
 ```console
 oneuser show 4
+```
 
+```
 USER 4 INFORMATION
 ID              : 4
 NAME            : cloud-user
@@ -202,7 +212,7 @@ Outside of the test scenario - it must be different from **oneadmin's**!
 
 ## 2.1.15
 
-Open the Node 1's Command Line and login as the **oneadmin** user.
+Open the Node 1's Command Line and login as the **oneadmin** user if not already.
 
 ```console
 sudo -iu oneadmin
@@ -212,12 +222,13 @@ Then use the **cat** command to print the contents of the **id_rsa.pub** file
 
 ```console
 cat ~/.ssh/id_rsa.pub
-
-ssh-rsa AAAAB3NzaC1yc2EA...vOYzTlXjw+0o5fL6v9eISVeMRQiLZCwYp3tJk7G0= oneadmin@one-aio-frontend-0
 ```
 
 Copy the output to the clipboard.
 
+```
+ssh-rsa AAAAB3NzaC1yc2EA...vOYzTlXjw+0o5fL6v9eISVeMRQiLZCwYp3tJk7G0= oneadmin@one-aio-frontend-0
+```
 
 ## 2.1.16
 
@@ -260,7 +271,11 @@ Return to the Command Line and use the **cat** command to print the contents of 
 
 ```console
 cat ~/.ssh/id_rsa
+```
 
+Copy the output to the clipboard.
+
+```console
 -----BEGIN OPENSSH PRIVATE KEY-----
 b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn
 NhAAAAAwEAAQAAAYEAp5cLqSfNY4irlbWvEJBsuASw5X4OqptLn7WmO5GS/xf/1fn6IzpH
@@ -270,9 +285,6 @@ TaRgPVI47LJSekjljkm8iLZBhJXQMBedy45VEYyrk2DNzvyFvQRmTFcIYLWnvUvhZu5Io9
 vrgFmhxCPRkKsVAAAAG29uZWFkbWluQG9uZS1haW8tZnJvbnRlbmQtMAECAwQFBgc=
 -----END OPENSSH PRIVATE KEY-----
 ```
-
-Copy the output to the clipboard.
-
 
 ## 2.1.22
 
