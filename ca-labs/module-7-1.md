@@ -32,7 +32,7 @@ Navigate to the **Infrastructure -> Clusters** to access the cluster management 
     
 ## 7.1.2
 
-Press **Create** to add a new Cluster.
+Press **Create Cluster** to add a new Cluster.
 
 <img src="./../assets/ca-images/module7_lab1/s2.png">
     
@@ -44,13 +44,13 @@ Select the **Define a Cluster** option from the list, because you are going to c
     
 ## 7.1.4
 
-Name it **prod-cluster**.
+Name it **app-cluster**.
 
 <img src="./../assets/ca-images/module7_lab1/s4.png">
     
 ## 7.1.5
 
-Add two Hosts to the Cluster that are not occupied by any VM.
+Add two Hosts to the Cluster that are **using resolvable names** and not IPs.
 
 <img src="./../assets/ca-images/module7_lab1/s5.png">
     
@@ -62,13 +62,13 @@ Add both networks to the cluster.
     
 ## 7.1.7
 
-Add all available **datastores** to the Cluster.
+Add all non-default **datastores** to the Cluster.
 
 <img src="./../assets/ca-images/module7_lab1/s7.png">
     
 ## 7.1.8
 
-You should have another cluster with two hosts.
+You should end up having another cluster with two hosts.
     
 <img src="./../assets/ca-images/module7_lab1/s8.png">
 
