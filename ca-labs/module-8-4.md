@@ -18,8 +18,9 @@ parent: Module 8 - VM Templates & VMs
 </details>
     
 ## Objective(-s):
+- Resize a VM.
+- Migrate a VM.
 - Perform the Backup, Recover - Recreate & Restore actions.
-- Migare the VM.
 
 # Perform the Backup, Recover - Recreate & Restore actions
     
