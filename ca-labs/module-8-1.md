@@ -110,7 +110,7 @@ Add the following code to the **Start script** field and proceed to the next pag
 
 ```console
 source /root/bin/activate
-cd /root/app
+cd /root/app/app
 python3 -u app.py &
 
 cloudflared tunnel --url http://127.0.0.1:5000 > /var/log/cfd.log 2>&1 &
