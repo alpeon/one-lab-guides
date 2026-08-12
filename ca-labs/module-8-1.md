@@ -18,13 +18,12 @@ parent: Module 8 - VM Templates & VMs
 </details>
     
 ## Objective(-s):
-- Create a VM Template for the DB Server.
 - Adjust the Alpine Linux 3.21 VM Template.
-- Adjust the Ubuntu 24.04 VM Template.
+- Create a VM Template for the DB Server.
 - Adjust Permissions for VM Templates and Images.
 
 
-# Create a VM Template for the DB Server.
+# Adjust the Alpine Linux 3.21 VM Template.
     
 ## 8.1.1
 
@@ -35,198 +34,79 @@ From the Dashboard press **VM Templates** shortcut button to access the VM Templ
     
 ## 8.1.2
 
-Select the **Alpine Linux 3.XX** VM Template and press **Clone**.
+Select the **Alpine Linux 3.XX** VM Template and press the rename button.
 
 <img src="./../assets/ca-images/module8_lab1/s2.png">
 
     
 ## 8.1.3
 
-Name it as **alpine-db-server** and press **Accept**.
-
-Make sure that **Clone with images remains unchecked!**
+Name it as **alpine-app-server** and press anywhere outside of the text box.
 
 <img src="./../assets/ca-images/module8_lab1/s3.png">
 
-    
 ## 8.1.4
 
-Select the **alpine-db-server** VM Template and press the *8Update** button.
+While the template remains selected - press the **Update** button.
 
 <img src="./../assets/ca-images/module8_lab1/s4.png">
-
     
 ## 8.1.5
 
-Change the **Memory** value from **256** to **1024** and proceed ot the **Next** step of the wizard.
+Change the **Memory** value from **256** to **2048** and proceed ot the **Next** step of the wizard.
 
 <img src="./../assets/ca-images/module8_lab1/s5.png">
 
 
 ## 8.1.6
-    
-Under **Storage** locate the **Alpine Linux 3.XX** disk and press **Edit**. 
+
+Navigate to the **Network** section and press the **Attach NIC** button. 
 
 <img src="./../assets/ca-images/module8_lab1/s6.png">
 
     
 ## 8.1.7
 
-In the Image selector pick **Alpine Linux DB Server**.
+Toggle the **SSH connection** switch under the **Guacamole Connections** section.
 
 <img src="./../assets/ca-images/module8_lab1/s7.png">
 
     
 ## 8.1.8
 
-Change the **Size on the instantiate** from **512** to **5120** and press **Finish**.
+On the next page select the **routable-vnet** network then proceed through other pages without changes and save changes.
 
 <img src="./../assets/ca-images/module8_lab1/s8.png">
 
     
 ## 8.1.9
 
-Once saved, you should see that the name and size were changed.
+You should end up having the **NIC0: routable-vnet** attached with the **SSH** label.
 
 <img src="./../assets/ca-images/module8_lab1/s9.png">
 
-
-    
 ## 8.1.10
 
-Navigate to the **Network** section and locate the **NIC0**.
-
-Press the **Attach NIC* button. 
-
-<img src="./../assets/ca-images/module8_lab1/s10.png">
-
-    
-## 8.1.11
-
-Toggle the **SSH connection** under the **Guacamole Connections** section.
-
-<img src="./../assets/ca-images/module8_lab1/s11.png">
-
-    
-## 8.1.12
-
-On the next page select the **isolated** network then proceed through other pages without changes and save changes.
-
-<img src="./../assets/ca-images/module8_lab1/s12.png">
-
-    
-## 8.1.13
-
-You should end up having the **NIC0: isolated** attached with the **SSH** label.
-
-<img src="./../assets/ca-images/module8_lab1/s13.png">
-
-    
-## 8.1.14
-
-Switch to the **Context** tab.
-
-
-## 8.1.15
-
-Add the following code to the **Start script** field and proceed to the next page.
-
-```console
-rc-service mariadb start
-```
-<img src="./../assets/ca-images/module8_lab1/s15.png">
-
-    
-## 8.1.16
-
-Keep it as is and press the **Finish** button.
-
-<img src="./../assets/ca-images/module8_lab1/s16.png">
-
-
-### Update the Ubuntu 24.04 VM Template.
-
-    
-## 8.1.17
-
-Select **Ubuntu 24.04** and press the **edit** button to edit the Name field.
-
-<img src="./../assets/ca-images/module8_lab1/s17.png">
-
-    
-## 8.1.18
-
-Name it as **ubuntu-application** and press the check button.
-
-<img src="./../assets/ca-images/module8_lab1/s18.png">
-
-
-
-## 8.1.19
-
-Select the **ubuntu-application** and press the **Update** button. 
-
-<img src="./../assets/ca-images/module8_lab1/s19.png">
-
-    
-## 8.1.20
-
-Change the **Memory** value from **768** to **2048** and proceed ot the **Next** step of the wizard.
-
-<img src="./../assets/ca-images/module8_lab1/s20.png">
-
-
-## 8.1.21
-
-Navigate to the **Network** section and press the **Attach** button.
-
-<img src="./../assets/ca-images/module8_lab1/s21.png">
-
-
-## 8.1.22
-
-Toggle the **SSH connection** under the **Guacamole Connections** section.
-
-<img src="./../assets/ca-images/module8_lab1/s22.png">
-
-
-## 8.1.23
-
-On the next page select the **isolated** network then proceed through other pages without changes and save changes. 
-
-<img src="./../assets/ca-images/module8_lab1/s23.png">
-
-
-## 8.1.24
-
-You should end up having the **NIC0: isolated** attached with the **SSH** label. 
-
-<img src="./../assets/ca-images/module8_lab1/s24.png">
-
-
-# Attach another vNIC
+**Attach another vNIC**
 
 Perform this task on your own without any guidance!
 
 {: .warning}
-> This time place it into the "routable" virtual network.
+> This time place it into the **isolated-vnet** virtual network and **without any Guacamole setting enabled**.
 
+You should end up with two vNICs in two vNETs.
+
+<img src="./../assets/ca-images/module8_lab1/s10.png">
     
-## 8.1.25
+## 8.1.11
 
-Switch to the **Context** tab and toggle the **Add OneGate token**.
+Switch to the **Context** tab.
 
-<img src="./../assets/ca-images/module8_lab1/s25.png">
+<img src="./../assets/ca-images/module8_lab1/s11.png">
 
+## 8.1.12
 
-## 8.1.26
-
-Update the **Start script** section.
-
-
-## 8.1.27
-
-Add the following code to the **Start script** field.
+Add the following code to the **Start script** field and proceed to the next page.
 
 ```console
 source /root/bin/activate
@@ -238,16 +118,15 @@ sleep 60
 export CFD=$(grep -o -e 'https.*trycloudflare.com' /var/log/cfd.log)
 onegate vm update $VMID --data CFD_URL=$CFD
 ```
-
-
-## 8.1.28
-
-Your **Start script** field must look like the one on the picture below.
-
-<img src="./../assets/ca-images/module8_lab1/s28.png">
-
+<img src="./../assets/ca-images/module8_lab1/s12.png">
     
-## 8.1.29
+## 8.1.13
+
+Toggle the **Add OneGate token** switch.
+
+<img src="./../assets/ca-images/module8_lab1/s13.png">
+
+## 8.1.14
 
 Scroll down to the **User inputs** section and create a new input.
 
@@ -263,10 +142,9 @@ Toggle the **Mandatory** switch.
 
 Press **+ Add**
 
-<img src="./../assets/ca-images/module8_lab1/s29.png">
+<img src="./../assets/ca-images/module8_lab1/s14.png">
 
-
-## 8.1.30
+## 8.1.15
 
 Add another one
 
@@ -282,10 +160,9 @@ Toggle the **Mandatory** switch.
 
 Press **+ Add**
 
-<img src="./../assets/ca-images/module8_lab1/s30.png">
-
+<img src="./../assets/ca-images/module8_lab1/s15.png">
     
-## 8.1.31
+## 8.1.16
 
 Add another one
 
@@ -301,10 +178,9 @@ Toggle the **Mandatory** switch.
 
 Press **+ Add**
 
-<img src="./../assets/ca-images/module8_lab1/s31.png">
-
+<img src="./../assets/ca-images/module8_lab1/s16.png">
     
-## 8.1.32
+## 8.1.17
 
 Add another one
 
@@ -318,10 +194,9 @@ Toggle the **Mandatory** switch.
 
 Press **+ Add**
 
-<img src="./../assets/ca-images/module8_lab1/s32.png">
-
+<img src="./../assets/ca-images/module8_lab1/s17.png">
     
-## 8.1.33
+## 8.1.18
 
 Finally add the **optional** **TIMEZONE** input.
 
@@ -337,40 +212,109 @@ Keep  **Mandatory** switch un-toggled.
 
 Press **+ Add**
 
-<img src="./../assets/ca-images/module8_lab1/s33.png">
-
+<img src="./../assets/ca-images/module8_lab1/s18.png">
     
-## 8.1.34
+## 8.1.19
 
 You should have 5 variables in the list.
 
-<img src="./../assets/ca-images/module8_lab1/s34.png">
+<img src="./../assets/ca-images/module8_lab1/s19.png">
 
-    
-## 8.1.35
+## 8.1.20
 
 Navigate further down and expand the **Context Custom Variables** section.
 
-<img src="./../assets/ca-images/module8_lab1/s35.png">
+Set the Variable name **SET_HOSTNAME** and map it to the **$NAME** value and press the **+** button.
+
+<img src="./../assets/ca-images/module8_lab1/s20.png">
+
+## 8.1.21
+
+Now press the **Save** button.
+
+## Create a VM Template for the DB Server.
+
+## 8.1.22
+
+Select the **alpine-app-server** VM Template and press the **Clone** button. 
+
+<img src="./../assets/ca-images/module8_lab1/s22.png">
+    
+## 8.1.23
+
+Change the name to **alpine-db-server** and confirm the cloning. 
+
+Make sure that the checkbox remains empty!
+
+<img src="./../assets/ca-images/module8_lab1/s23.png">
+
+    
+## 8.1.24
+
+Select the **alpine-db-server** and press the **Update** button.
+
+<img src="./../assets/ca-images/module8_lab1/s24.png">
+
+    
+## 8.1.25
+
+Scroll down and set the **CPU** to 2. Then proceed to the next configuration screen.
+
+<img src="./../assets/ca-images/module8_lab1/s25.png">
 
 
-## 8.1.36
+## 8.1.26
 
-Set the Variable name **SET_HOSTNAME** and map it to the **$NAME** value.
+Under the storage section locate the currenly attached disk and press the **three dots** button. 
 
-<img src="./../assets/ca-images/module8_lab1/s36.png">
+Select the **Edit** from there.
 
+<img src="./../assets/ca-images/module8_lab1/s26.png">
+
+
+## 8.1.27
+
+Select the **Alpine Linux DB Server** image and then the **Save** button. 
+
+<img src="./../assets/ca-images/module8_lab1/s27.png">
+
+
+## 8.1.28
+
+Then switch to the **Network** tab, locate the NIC that is attached to the **routable-vnet** networks and detach it. 
+
+<img src="./../assets/ca-images/module8_lab1/s28.png">
+
+## 8.1.29
+
+Confirm the detachment.
+
+<img src="./../assets/ca-images/module8_lab1/s29.png">
+
+## 8.1.30
+
+Switch to **Context** tab and change the **Start script**.
+
+```console
+rc-service mariadb start
+```
+
+<img src="./../assets/ca-images/module8_lab1/s30.png">
+
+## 8.1.31
+
+Remove all **User inputs** but **TIMEZONE** and **Save** the template.
+
+<img src="./../assets/ca-images/module8_lab1/s31.png">
 
 # Adjust Permissions for VM Templates and Images.
 
-    
-## 8.1.37
+## 8.1.32
 
 Go to Node 1's Command Line and execute the onetemplate command.
 
 ```console
 onetemplate list
-
 ```
 
 Write down the IDs of all VM Templates you have and execute the **onetemplate** one more time to share them with others.
@@ -380,7 +324,7 @@ onetemplate chmod <LOWEST ID>...<HIGHEST ID> 644
 ```
 
     
-## 8.1.38
+## 8.1.33
 
 Use the **oneimage** command to list all images.
 
@@ -394,11 +338,5 @@ Write down the IDs of all Images you have and execute the **oneimage** one more 
 oneimage chmod <LOWEST ID>...<HIGHEST ID> 644
 ```
 
-## 8.1.39
-
-Navigate to the **Custom Variables** page and press the **Finish** button.
-
-<img src="./../assets/ca-images/module8_lab1/s39.png">
-    
 # Congratulations, you've completed the assignment!
 {: .no_toc}

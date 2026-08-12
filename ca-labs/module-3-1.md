@@ -21,7 +21,7 @@ parent: Module 3 - Sunstone
     
 ## Objective(-s):
 - Create a Custom View.
-- Update the "attendees" to use the custom view.
+- Update the "cloud-users" to use the custom view.
 - Verify the custom view.
     
 
@@ -31,6 +31,8 @@ parent: Module 3 - Sunstone
 
 From the Node 1's Command Line login as root and go to the views directory.
 
+**Please note that you can't switch to root directly from oneadmin user. You must exit to the ubuntu user first!**
+
 ```console
 sudo su
 cd /etc/one/fireedge/sunstone/views/
@@ -39,26 +41,33 @@ cd /etc/one/fireedge/sunstone/views/
 Copy the "user" view.
 
 ```console
-cp -R user/ limited_user
+cp -R user/ custom
 ```
     
 ## 3.1.2
 
-Enter the newly created view directory and remove views.
+Enter the newly created view directory and remove the oneks view.
 
 ```console
-cd limited_user/
-rm -f sec-group-tab.yaml vnet-tab.yaml
+cd custom/
+rm -f oneks-tab.yaml
 ls -lh
+```
 
-total 28K
--rw-r--r-- 1 root root  885 Apr 15 10:13 backup-tab.yaml
--rw-r--r-- 1 root root  884 Apr 15 10:13 file-tab.yaml
--rw-r--r-- 1 root root 1.2K Apr 15 10:13 image-tab.yaml
--rw-r--r-- 1 root root 1.1K Apr 15 10:13 marketplace-app-tab.yaml
--rw-r--r-- 1 root root 1.2K Apr 15 10:13 service-tab.yaml
--rw-r--r-- 1 root root 2.7K Apr 15 10:13 vm-tab.yaml
--rw-r--r-- 1 root root 1.9K Apr 15 10:13 vm-template-tab.yaml
+```console
+total 48K
+-rw-r--r-- 1 root root  885 Aug  7 13:07 backup-tab.yaml
+-rw-r--r-- 1 root root  490 Aug  7 13:07 dashboard-tab.yaml
+-rw-r--r-- 1 root root  884 Aug  7 13:07 file-tab.yaml
+-rw-r--r-- 1 root root 1.1K Aug  7 13:07 group-tab.yaml
+-rw-r--r-- 1 root root 1.2K Aug  7 13:07 image-tab.yaml
+-rw-r--r-- 1 root root 1.1K Aug  7 13:07 marketplace-app-tab.yaml
+-rw-r--r-- 1 root root  951 Aug  7 13:07 sec-group-tab.yaml
+-rw-r--r-- 1 root root 1.7K Aug  7 13:07 service-tab.yaml
+-rw-r--r-- 1 root root 2.8K Aug  7 13:07 vm-tab.yaml
+-rw-r--r-- 1 root root 1.9K Aug  7 13:07 vm-template-tab.yaml
+-rw-r--r-- 1 root root 1.5K Aug  7 13:07 vnet-tab.yaml
+-rw-r--r-- 1 root root 1.3K Aug  7 13:07 vnet-template-tab.yaml
 ```
     
 ## 3.1.3
@@ -75,62 +84,42 @@ Under the **views** add the following code.
 ```console
 views:
     ...
-    limited_user:
-        name: "Limited View"
-        description: "A trimmed-down User view"
+    custom:
+        name: "Custom"
+        description: "A User view without OneKS"
 ```
 
-# Update the "attendees" to use the custom view.
+# Update the "cloud-users" to use the custom view.
 
     
 ## 3.1.4
 
-Return to Sunstone's Groups tab and press the **Update** button.
+Return to Sunstone and relogin as **oneadmin**.
+Navigate to Groups tab and select the **cloud-users** group.
 
 <img src="./../assets/ca-images/module3_lab1/s4.png">
 
     
 ## 3.1.5
 
-Toggle the **Limited View** and press **Next**.
+Press the **Update** button.
 
 <img src="./../assets/ca-images/module3_lab1/s5.png">
-
     
 ## 3.1.6
 
-Press **Finish**.
+Set the **Custom** view as the default view and and press **Save**.
 
 <img src="./../assets/ca-images/module3_lab1/s6.png">
 
     
 ## 3.1.7
 
-Login as **attendee-user**.
+Login as **cloud-user** and note that the **Custom** view is now set as the default view.
+
+Also note that the **Kubernetes** tab is no longer availiable under this view. 
 
 <img src="./../assets/ca-images/module3_lab1/s7.png">
-
-    
-## 3.1.8
-
-Note that the **Network** menu item is present!
-
-<img src="./../assets/ca-images/module3_lab1/s8.png">
-
-    
-## 3.1.9
-
-From the view switcher select the **limited_user** view.
-
-<img src="./../assets/ca-images/module3_lab1/s9.png">
-
-    
-## 3.1.10
-
-Now pay attendtion to the menu bar. The **Network** item should disappear.
-
-<img src="./../assets/ca-images/module3_lab1/s10.png">
-
     
 # Congratulations, you've completed the assignment!
 {: .no_toc}

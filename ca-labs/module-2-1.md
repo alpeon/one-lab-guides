@@ -37,16 +37,16 @@ Navigate to **System -> Groups** to access the Groups Management screen.
 
 ## 2.1.2
 
-From the Groups screen press **Create** to start the wizard. 
+From the Groups screen press **Create Group** to start the wizard. 
 
 <img src="./../assets/ca-images/module2_lab1/s2.png">
 
 
 ## 2.1.3
 
-Name the group **attendees**.
+Name the group **cloud-users**.
 
-Add an administrator user with the name **attendees-admin**. 
+Add an administrator user with the name **cloud-admin**. 
 
 Set **Authentication Type** to **core**. 
 
@@ -96,24 +96,30 @@ Switch to the Node 1's Command Line.
 
 Use **oneuser** to list current users and make sure **attendees-admin** is listed.
 
-
 ```console
 oneuser list
+```
 
-ID NAME               ENAB GROUP    AUTH            VMS            MEMORY        CPU
-3 attendees-admin    yes  attendee core        0 /   -      0M /       -  0.0 /   -
-2 one                yes  oneadmin core        0 /   -      0M /       -  0.0 /   -
-1 serveradmin        yes  oneadmin server_c    0 /   -      0M /       -  0.0 /   -
-0 oneadmin           yes  oneadmin core              -                 -          -
+```console
+ ID NAME              ENAB GROUP    AUTH           VMS          MEMORY        CPU       PCI
+   3 cloud-admin      yes  cloud-us core       0 /   -     0M /      -  0.0 /   -   0 /   -
+   2 one              yes  oneadmin core       0 /   -     0M /      -  0.0 /   -   0 /   -
+   1 serveradmin      yes  oneadmin server_c   0 /   -     0M /      -  0.0 /   -   0 /   -
+   0 oneadmin         yes  oneadmin core             -               -          -         -
 ```
 
 
 ## 2.1.9
 
-Create a new user with the name **attendee-user** adn add to the newly created group. Note that your Group's ID might be different!
+Create a new user with the name **cloud-user** adn add to the newly created group. Note that your Group's ID might be different!
 
 ```console
-oneuser create 'attendee-user' 'Pa$$w0rd' --group 100
+oneuser create 'cloud-user' 'Pa$$w0rd' --group 100
+```
+
+You supposed to get the ID of a new user as an iutput.
+
+```console
 ID: 4
 ```
 
@@ -121,14 +127,16 @@ List users and verify that the new user has been created.
 
 ```console
 oneuser list
+```
 
-ID NAME                 ENAB GROUP    AUTH            VMS            MEMORY        CPU
-4 attendee-user         yes  attendee core        0 /   -      0M /       -  0.0 /   -
-3 attendees-admin       yes  attendee core        0 /   -      0M /       -  0.0 /   -
-2 one                   yes  oneadmin core        0 /   -      0M /       -  0.0 /   -
-1 serveradmin           yes  oneadmin server_c    0 /   -      0M /       -  0.0 /   -
-0 oneadmin              yes  oneadmin core              -                 -          -
-
+```console
+  ID NAME             ENAB GROUP    AUTH           VMS          MEMORY        CPU       PCI
+   4 cloud-user       yes  cloud-us core       0 /   -     0M /      -  0.0 /   -   0 /   -
+   3 cloud-admin      yes  cloud-us core       0 /   -     0M /      -  0.0 /   -   0 /   -
+   2 one              yes  oneadmin core       0 /   -     0M /      -  0.0 /   -   0 /   -
+   1 serveradmin      yes  oneadmin server_c   0 /   -     0M /      -  0.0 /   -   0 /   -
+   0 oneadmin         yes  oneadmin core             -               -          -         -
+```
 
 # Change the UMASK.
 
@@ -145,11 +153,13 @@ Verify that the umask was set to the correct one.
 
 ```console
 oneuser show 4
+```
 
+```
 USER 4 INFORMATION
 ID              : 4
-NAME            : attendee-user
-GROUP           : attendees
+NAME            : cloud-user
+GROUP           : cloud-users
 PASSWORD        : 97c94ebe5d767a353b77f3c0ce2d429741f2e8c99473c3c150e2faa3d14c9da6
 AUTH_DRIVER     : core
 ENABLED         : Yes
@@ -202,7 +212,7 @@ Outside of the test scenario - it must be different from **oneadmin's**!
 
 ## 2.1.15
 
-Open the Node 1's Command Line and login as the **oneadmin** user.
+Open the Node 1's Command Line and login as the **oneadmin** user if not already.
 
 ```console
 sudo -iu oneadmin
@@ -212,50 +222,60 @@ Then use the **cat** command to print the contents of the **id_rsa.pub** file
 
 ```console
 cat ~/.ssh/id_rsa.pub
-
-ssh-rsa AAAAB3NzaC1yc2EA...vOYzTlXjw+0o5fL6v9eISVeMRQiLZCwYp3tJk7G0= oneadmin@one-aio-frontend-0
 ```
 
 Copy the output to the clipboard.
 
+```
+ssh-rsa AAAAB3NzaC1yc2EA...vOYzTlXjw+0o5fL6v9eISVeMRQiLZCwYp3tJk7G0= oneadmin@one-aio-frontend-0
+```
 
 ## 2.1.16
 
-Login as **attendee-user**.
+Login as **cloud-user**.
 
 <img src="./../assets/ca-images/module2_lab1/s16.png">
 
     
 ## 2.1.17
 
-Navigate to **Settings -> Security**.
-
-Press edit the **SSH public key**.
+Navigate to **Profile Settings**.
 
 <img src="./../assets/ca-images/module2_lab1/s17.png">
 
-    
+
 ## 2.1.18
 
-Paste the key into the field.
+Switch to the **Security** tab.
 
 <img src="./../assets/ca-images/module2_lab1/s18.png">
 
     
 ## 2.1.19
 
-Click anywhere outside to save the key.
+Locate the **SSH public key** field and press the edit button.
 
 <img src="./../assets/ca-images/module2_lab1/s19.png">
 
-
+    
 ## 2.1.20
+
+Paste the key and click anywhere outside to save the key.
+
+<img src="./../assets/ca-images/module2_lab1/s20.png">
+
+
+## 2.1.21
 
 Return to the Command Line and use the **cat** command to print the contents of the **id_rsa** file. 
 
 ```console
 cat ~/.ssh/id_rsa
+```
 
+Copy the output to the clipboard.
+
+```console
 -----BEGIN OPENSSH PRIVATE KEY-----
 b3BlbnNzaC1rZXktdjEAAAAABG5vbmUAAAAEbm9uZQAAAAAAAAABAAABlwAAAAdzc2gtcn
 NhAAAAAwEAAQAAAYEAp5cLqSfNY4irlbWvEJBsuASw5X4OqptLn7WmO5GS/xf/1fn6IzpH
@@ -266,31 +286,20 @@ vrgFmhxCPRkKsVAAAAG29uZWFkbWluQG9uZS1haW8tZnJvbnRlbmQtMAECAwQFBgc=
 -----END OPENSSH PRIVATE KEY-----
 ```
 
-Copy the output to the clipboard.
-
-
-## 2.1.21
+## 2.1.22
 
 Go back to the **Settings** tab and locate the **SSH private key** field. 
 
 Enter the editing mode of that field. 
-
-<img src="./../assets/ca-images/module2_lab1/s21.png">
-
-
-## 2.1.22
-
-Paste the private key into the field.
 
 <img src="./../assets/ca-images/module2_lab1/s22.png">
 
 
 ## 2.1.23
 
-Press anywhere outside of that field to save it.
+Paste the private key into the field and then press anywhere outside of that field to save it.
 
 <img src="./../assets/ca-images/module2_lab1/s23.png">
-
 
 # Congratulations, you've completed the assignment!
 {: .no_toc}
