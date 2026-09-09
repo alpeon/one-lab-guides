@@ -1,9 +1,9 @@
 ---
 layout: default
-title: Lab 1 - OpenNebula Cloud API
-parent: Module 7 - OpenNebula Cloud API
+title: Lab 1 - Hooks
+parent: Module 7 - Hooks
 ---
-# Module 7 - Lab 1 : OpenNebula Cloud API 
+# Module 7 - Lab 1 : Hooks 
 {: .no_toc}
 
 ## Table of Contents
@@ -16,88 +16,123 @@ parent: Module 7 - OpenNebula Cloud API
   {: .text-delta }
 1. TOC
 {:toc}
-</details>
-
+</details> 
+    
 ## Objective(-s):
-- Install the python bindings.
-- Download the script and adjust it.
-- Run the script and verify the execution.
+- Download the hook script and create the Hook.
+- Test the execution.
+ 
 
+# Download the hook script and create the Hook.
+     
+## 6.1.1
 
-# Install the python bindings.
-
-
-## 7.1.1
-
-Create the virtual environment and install the **pyone** bindings.
-```console
-cd ~
-mkdir oca
-python3 -m venv oca
-cd oca
-source bin/activate
-pip install pyone
-``` 
-
-# Download and adjust the script.
-
-## 7.1.2
+Clone the repository with the hook script.
 
 ```console
 export REPO='https://github.com/OpenNebula/one-training-files.git'
-git clone --no-checkout $REPO
-cd one-training-files
+rm -rf ~/Files
+git clone --no-checkout $REPO  ~/Files
+cd ~/Files
 git sparse-checkout init --cone
-git sparse-checkout set OCA
+git sparse-checkout set Hooks
 git checkout
-cd OCA
+cd Hooks
 ls -lh
-total 8.0K
--rw-rw-r-- 1 oneadmin oneadmin 2.7K Aug  4 13:09 ascii.py
--rw-rw-r-- 1 oneadmin oneadmin 1.7K Aug  4 13:09 oca.py
+total 4.0K
+-rw-rw-r-- 1 oneadmin oneadmin 818 Aug  4 12:10 report.py
 ```
+ 
+    
+## 6.1.2
 
-
-## 7.1.3
-
-Adjust the **oca.py** script! 
-
-Locate a few **\<\<CHANGE ME\>\>** objects in the script and substitute these with the values - **2633**, **evpn0** and **AlmaLinux 9**.
-
-# Run the script and verify the execution.
-
-## 7.1.4
-
-Execute the script and provide the credentials in-line.
+Copy the script to the hooks directory and make it executable.
 
 ```console
-python3 oca.py 'oneadmin' '<PASSWORD>' '127.0.0.1'
+cp report.py ~/remotes/hooks/
+chmod +x ~/remotes/hooks/report.py
 ```
+ 
 
-Verify that the VM has been deployed and now running.
+## 6.1.3
+
+Create a file named **hook.cfg** with the following content.
 
 ```console
-ID USER     GROUP    NAME                    STAT  CPU     MEM HOST                  TIME
-10 oneadmin oneadmin AlmaLinux 9-10         runn    1    768M 163.172.138.109       0d 00h02
+NAME      = "report"
+TYPE      = STATE
+RESOURCE  = "VM"
+ON        = "CUSTOM"
+STATE     = "PENDING"
+LCM_STATE = "LCM_INIT"
+COMMAND   = "report.py"
+ARGUMENTS = "$TEMPLATE"
 ```
 
-Run **onevm show** and verify the persistence of START_SCRIPT and the IP Address to make sure the VM Template was altered.
+Use **onehook** command line to create a hook.
 
 ```console
-onevm show 10
-...
-VM NICS
-ID NETWORK              BRIDGE       IP              MAC               PCI_ID
-0 evpn0                onebr.20     172.17.2.200    02:00:ac:11:02:c8
-...
-CONTEXT=[
-...
-START_SCRIPT_BASE64="ZWNobyAkKGRhdGUpID4+IC9yb290L2RhdGUudHh0Cg=="
-...
-]
+onehook create hook.cfg
+ID: 0
 ```
-{: .note}
-> Try to connect to the VM using the SSH. Can you tell why it fails? Send a private message with the answer to your trainer.
+ 
 
+# Test the execution.
+ 
+    
+## 6.1.4
+
+Instantiate **any** VM Template a few times.
+
+```console
+onetemplate instantiate Alpine\ Linux\ 3.21 -m 4
+VM ID: 2
+VM ID: 3
+VM ID: 4
+VM ID: 5
+```
+ 
+    
+## 6.1.5
+
+View the Hook Execution log.
+
+```console
+onehook log
+HOOK    ID       TIMESTAMP    RC EXECUTION
+    0     3     08/04 12:24     0 SUCCESS
+    0     2     08/04 12:24     0 SUCCESS
+    0     1     08/04 12:24     0 SUCCESS
+    0     0     08/04 12:24     0 SUCCESS
+``` 
+    
+## 6.1.6
+
+Check the **report.txt** file for the contents.
+
+```console
+cat /tmp/report.txt
+New VM data:
+VM Name: Alpine Linux 3.21-6
+VM ID: 2
+Owner: oneadmin
+*******************
+New VM data:
+VM Name: Alpine Linux 3.21-8
+VM ID: 3
+Owner: oneadmin
+*******************
+New VM data:
+VM Name: Alpine Linux 3.21-7
+VM ID: 4
+Owner: oneadmin
+*******************
+New VM data:
+VM Name: Alpine Linux 3.21-9
+VM ID: 5
+Owner: oneadmin
+*******************
+``` 
+    
 # Congratulations, you've completed the assignment!
 {: .no_toc}
