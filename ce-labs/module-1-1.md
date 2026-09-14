@@ -107,6 +107,11 @@ Verify that **opennebula.deploy** collection has been installed.
 
 ```console
 ansible-galaxy collection list
+```
+
+You supposed to have the output similar to the one below.
+
+```console
 ...
 /config/ansible/one-deploy/ansible_collections
 Collection                               Version

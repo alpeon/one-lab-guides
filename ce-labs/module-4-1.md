@@ -177,7 +177,7 @@ oneimage create -d 1 --name 'Service FlaskApp' --path /var/tmp/one/service_Flask
 You should receive the Image's ID as an output. **Write it down as you will need it in the future!**
 
 ```console
-ID: 2
+ID: 1
 ```
 
 

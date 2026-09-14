@@ -20,9 +20,9 @@ parent: Module 5 - Services
     
 ## Objective(-s):
 - Import the Service Template.
+- Create an Empty Image.
+- Update the VM Template.
 - Instantiate the Service Template.
-- Scale the Service Role.
-- Run the Test Application.
 - Destroy the running Service. 
     
 
@@ -32,220 +32,177 @@ parent: Module 5 - Services
 
 Navigate to **Storage -> Apps**.
 
-<img src="./../assets/ca-images/module5_lab1/s1.png" class="img_80_percent">
+<img src="./../assets/ce-images/module5_lab1/s1.png">
 
     
 ## 5.1.2
 
-Enter **OneKE** in the search and in the **Filter** drop-down set **Type** to **Service Template**.
+Enter **MinIO** in the search and in the **Filter** drop-down set **Type** to **Service Template**.
 
-<img src="./../assets/ca-images/module5_lab1/s2.png" class="img_70_percent">
+<img src="./../assets/ce-images/module5_lab1/s2.png">
 
     
 ## 5.1.3
 
-Locate the **Service OneKE 1.31** and press **Import**.
+Locate the **Service MinIO Multi-Node** and press **Import**.
 
-<img src="./../assets/ca-images/module5_lab1/s3.png" class="img_80_percent">
+<img src="./../assets/ce-images/module5_lab1/s3.png">
 
     
 ## 5.1.4
 
 You can change the **Name** and **VM Template** name if you wish, however it's better to keep it as is.
 
-<img src="./../assets/ca-images/module5_lab1/s4.png" class="img_80_percent">
+<img src="./../assets/ce-images/module5_lab1/s4.png">
 
     
 ## 5.1.5
 
 Select the **default** datastore and press **Finish**.
 
-<img src="./../assets/ca-images/module5_lab1/s5.png" class="img_80_percent">
-
-
-# Instantiate the Service Template.
-
+<img src="./../assets/ce-images/module5_lab1/s5.png">
 
 ## 5.1.6
 
-From the Frontend Node's Command Line run the **oneflow-template** command.
+The VM Templates along with the necessary Images will be downloaded shortly.
 
-```console
-oneflow-template instantiate Service\ OneKE\ 1.31
-```
+<img src="./../assets/ce-images/module5_lab1/s6.png">
 
-Leave most of the variables as is (simply press Enter or Return everytime there's a prompt) aside form the ones mentioned below.
+# Create an Empty Image.
 
-Make sure to map correctly the Virtual Networks. Public - **evpn0** and Private - **evpn1**.
+{: .note }
+> MinIO VM requires 4 extra disks to be attached. For this purpose you will need to create an empty Datablock image.
 
-```console
-...
-    * (ONEAPP_K8S_LONGHORN_ENABLED) Enable Longhorn
-    Press enter for default (NO). YES
-...
-* (ONEAPP_K8S_TRAEFIK_ENABLED) Enable Traefik
-    Press enter for default (NO). YES
-...
-There are some networks that require user input. Use the string <<EDITOR>> to launch an editor (e.g. for multi-line inputs)
-* (Public) Public
-    TYPE Existing(1), Create(2), Reserve(3). Press enter for default. 1
-    VN ID. 0
-* (Private) Private
-    TYPE Existing(1), Create(2), Reserve(3). Press enter for default. 1
-    VN ID. 1
-ID: 1
-```
-
-    
 ## 5.1.7
 
-Wait until the service is in the state **RUNNING**.
+Navigate to **Storage -> Images**.
 
-```console
-oneflow list
-    ID USER     GROUP    NAME                                                                                                                                                                                          STARTTIME STAT
-1 oneadmin oneadmin Service OneKE 1.31    08/03 19:47:24 RUNNING
-```
-
+<img src="./../assets/ce-images/module5_lab1/s7.png">
 
 ## 5.1.8
 
-Export the kubectl configuration file from the master node to verify that k8s is running.
+Press **Create Image**.
 
-```console
-oneadmin@apetrovs-one-frontend:~$ onevm list --filter NAME~master
-ID USER     GROUP    NAME                                               STAT  CPU     MEM HOST                TIME
-1 oneadmin oneadmin master_0_(service_1)                                runn    2      3G 163.172.138.109     0d 00h20
-
-onevm show <id> -j | jq -r '.VM.USER_TEMPLATE.ONEKE_KUBECONFIG|@base64d' | install -m u=rw,go= -D /dev/fd/0 ~/.kube/config
-```
-
-You should end up being able to run the **kubectl get nodes** command and have an output similar to the one below.
-
-```console
-kubectl get nodes
-NAME                  STATUS   ROLES                       AGE   VERSION
-oneke-ip-172-18-2-2   Ready    control-plane,etcd,master   20m   v1.31.3+rke2r1
-oneke-ip-172-18-2-3   Ready    <none>                      18m   v1.31.3+rke2r1
-```
-
-    
-# Scale the Service Role.
+<img src="./../assets/ce-images/module5_lab1/s8.png">
 
 ## 5.1.9
 
-Once Service is up and running - it's time to scale the **storage** role. Currently **storage** role is running with cardinality to 0. Scale it to 1!
+Name it **MinIO-Data**.
 
-```console
-oneflow scale Service\ OneKE\ 1.31 storage 1
-```
+Set **Type** to **Generic storge datablock**. 
 
-Your service should transition to the **SCALING** state. 
+Set **Size** to **5GB**. 
 
-```console
-oneflow list
-ID USER     GROUP    NAME                               STARTTIME STAT
-1 oneadmin oneadmin Service OneKE 1.31                  08/03 19:47:24 SCALING
-```
+<img src="./../assets/ce-images/module5_lab1/s9.png">
 
-Wait until the transition to the **COOLDOWN** state.
-
-```console
-oneflow list
-    ID USER     GROUP    NAME                                                                                                                                                                                          STARTTIME STAT
-1 oneadmin oneadmin Service OneKE 1.31                  08/03 19:47:24 COOLDOWN
-```
-
-    
 ## 5.1.10
 
-Run the **kubectl** command to verify that the new node has been added.
+Store it on the **default** datastore. 
 
-```console
-kubectl get nodes
-NAME                  STATUS   ROLES                       AGE     VERSION
-oneke-ip-172-18-2-2   Ready    control-plane,etcd,master   28m     v1.31.3+rke2r1
-oneke-ip-172-18-2-3   Ready    <none>                      27m     v1.31.3+rke2r1
-oneke-ip-172-18-2-4   Ready    <none>                      2m38s   v1.31.3+rke2r1 
-```
+<img src="./../assets/ce-images/module5_lab1/s10.png">
 
-Clone the git repository.
-
-```console
-export REPO='https://github.com/OpenNebula/one-training-files.git'
-rm -rf ~/Files
-git clone --no-checkout $REPO  ~/Files
-cd ~/Files
-git sparse-checkout init --cone
-git sparse-checkout set OneKE
-git checkout
-cd OneKE
-ls -lh
-total 8.0K
-drwxrwxr-x 2 oneadmin oneadmin 4.0K Aug  3 20:22 test-app
--rw-rw-r-- 1 oneadmin oneadmin  943 Aug  3 20:22 test-app.tar
-```
-
-    
-# Run the Test App.
-
-    
 ## 5.1.11
 
-Create the deployment. 
+Set **BUS** to **Virtio**.
 
-```console
-kubectl apply -f test-app
-deployment.apps/mariadb created
-persistentvolumeclaim/mariadb-data created
-service/mariadb created
-deployment.apps/test-app created
-ingressroute.traefik.io/test-app-ingress created
-service/test-app-service created
-```
+Set **Format** to **QCOW2**.
 
-Extract the Public (eth0) IP of the VNF VM.
+Set **Target device** to **vd**.
 
-```console
-onevm show <vm id> -j | jq -r '.VM.TEMPLATE.CONTEXT.ETH0_IP'
-172.17.2.200
-```
-    
+<img src="./../assets/ce-images/module5_lab1/s11.png">
+
 ## 5.1.12
 
-It's time to test the Application. 
+Keep the **Custom Attributes** page as is and **Finish**.
 
-Try to create the database.
+<img src="./../assets/ce-images/module5_lab1/s12.png">
 
-```console
-curl 172.17.2.200/create-db
-{"message":"Table 'data' created successfully"}
-```
-
-Add some dummy data a few times.
-
-```console
-curl 172.17.2.200/insert-dummy
-{"message":"Dummy data inserted successfully"}
-curl 172.17.2.200/insert-dummy
-{"message":"Dummy data inserted successfully"}
-```
-
-And read data from the database. 
-
-```console
-curl 172.17.2.200/get-data
-[{"data1":"2025-08-03 20:38:34","data2":"98","id":1},{"data1":"2025-08-03 20:38:35","data2":"73","id":2}]
-```
-
-    
 ## 5.1.13
 
-Destroy the running Service.
+Note the **Image ID**, you will need this shortly!
+
+<img src="./../assets/ce-images/module5_lab1/s13.png">
+
+# Update the VM Template
+
+## 5.1.14
+
+Switch to Command Line and make sure you are connected to the Frontend Node and logged in as **oneadmin**.
 
 ```console
-oneflow delete Service\ OneKE\ 1.31
+whoami
+```
+
+```console
+oneadmin
+```
+
+## 5.1.15
+
+{: .note }
+> You may perform this action in Sunstone by executing the same process of attaching an Image 4 times. This guide will focuses on updating the VM Template using OpenNebula CLI
+
+Execute the **update** subcommand to start updating the VM template. 
+
+{: .warning }
+> Make sure you are not updating the vr template!
+
+```console
+onetemplate update Service\ MinIO\ Multi-Node-minio-0
+```
+
+Right after the first **DISK** parameter append 4 more **DISK** parameters and make sure you are using the Image ID from the previous output!
+
+```console
+DISK=[
+  DEV_PREFIX="vd",
+  IMAGE_ID="4"]
+DISK=[
+  DEV_PREFIX="vd",
+  IMAGE_ID="4"]
+DISK=[
+  DEV_PREFIX="vd",
+  IMAGE_ID="4"]
+DISK=[
+  DEV_PREFIX="vd",
+  IMAGE_ID="4"]
 ```
  
+## 5.1.16
+
+Switch to Sunstone and navigate to **Templates -> Service Templates**.
+
+<img src="./../assets/ce-images/module5_lab1/s16.png">
+
+## 5.1.17
+
+Select the MinIO Multi-Node service template and press the Instantiate button.
+
+<img src="./../assets/ce-images/module5_lab1/s17.png">
+
+## 5.1.18
+
+Name it the way you wish and proceed to the Networks page.
+
+<img src="./../assets/ce-images/module5_lab1/s18.png">
+
+## 5.1.18
+
+Name it the way you wish and proceed to the Networks page.
+
+<img src="./../assets/ce-images/module5_lab1/s19.png">
+
+## 5.1.19
+
+Map the **Public** service VN to the **routable** VN.
+
+Map the **Private** service VN to the **private** VN.
+
+<img src="./../assets/ce-images/module5_lab1/s19.png">
+
+## 5.1.20
+
+
+
 # Congratulations, you've completed the assignment!
 {: .no_toc}

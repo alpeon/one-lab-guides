@@ -154,6 +154,11 @@ Instantiate 15 VMs from the **Custom AL 3.21** VM Template.
 
 ```console
 onetemplate instantiate 1 -m 15
+```
+
+You must receive a list of IDs as an output.
+
+```console
 VM ID: 10
 VM ID: 8
 VM ID: 9
