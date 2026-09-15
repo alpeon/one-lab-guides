@@ -71,7 +71,7 @@ vi /etc/one/oned.conf
 Locate the **ONEGATE_ENDPOINT** and change it from your FE IP, to the tproxy's IP.
 
 ```console
-ONEGATE_ENDPOINT = "http://169.254.16.9:5030
+ONEGATE_ENDPOINT = "http://169.254.16.9:5030"
 ```
 
 ## 6.1.4

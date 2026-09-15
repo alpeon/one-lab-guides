@@ -20,16 +20,18 @@ parent: Module 6 - OneKS
     
 ## Objective(-s):
 - Provision the Control Plane
-- Provision the Node Group
+- Provision a Node Group
 - Extract the kubeconfig
-- Configure the CSI
-- Deploy the Test App 
+- Install the CSI and create the Storage Class
+- Deploy the Test App
+- Remove the deployment and cleanup the cluster.
+
 
 # Provision the Control Plane.
      
 ## 6.2.1
 
-In Sunstone, navigate to **Kubernetes -> K8S Cluster.
+In Sunstone, navigate to **Kubernetes -> K8S Cluster**.
 
 <img src="./../assets/ce-images/module6_lab2/s1.png">
 
@@ -87,7 +89,7 @@ Wait until the the control plane is in the **Running** state.
 
 <img src="./../assets/ce-images/module6_lab2/s10.png">
 
-# Provision the Node Group
+# Provision a Node Group
 
 ## 6.2.11
 

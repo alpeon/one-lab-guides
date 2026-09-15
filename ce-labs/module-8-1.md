@@ -27,7 +27,7 @@ parent: Module 8 - OpenNebula Cloud API
 # Install the python bindings.
 
 
-## 7.1.1
+## 8.1.1
 
 Create the virtual environment and install the **pyone** bindings.
 ```console
@@ -39,9 +39,15 @@ source bin/activate
 pip install pyone
 ``` 
 
+Make sure that installation has been finished without any errors.
+
+```console
+Successfully installed certifi-2026.7.22 charset_normalizer-3.5.1 dict2xml-1.7.8 grpcio-1.84.0 idna-3.19 lxml-6.1.3 pyone-7.3.80 requests-2.34.2 six-1.17.0 tblib-3.2.2 typing-extensions-4.16.0 urllib3-2.8.0 xmltodict-1.0.4
+```
+
 # Download and adjust the script.
 
-## 7.1.2
+## 8.1.2
 
 ```console
 export REPO='https://github.com/OpenNebula/one-training-files.git'
@@ -52,52 +58,73 @@ git sparse-checkout set OCA
 git checkout
 cd OCA
 ls -lh
+```
+
+Verify that the files are in place.
+
+```console
 total 8.0K
 -rw-rw-r-- 1 oneadmin oneadmin 2.7K Aug  4 13:09 ascii.py
 -rw-rw-r-- 1 oneadmin oneadmin 1.7K Aug  4 13:09 oca.py
 ```
 
 
-## 7.1.3
+## 8.1.3
 
-Adjust the **oca.py** script! 
+Open the **oca.py** file in the VS Codium.
 
-Locate a few **\<\<CHANGE ME\>\>** objects in the script and substitute these with the values - **2633**, **evpn0** and **AlmaLinux 9**.
+<img src="./../assets/ce-images/module8_lab1/s3.png">
+
+
+## 8.1.4
+
+{: .note }
+> This is a challenge - you must correctly substitute the variables!
+
+Locate a few **\<\<CHANGE ME\>\>** objects in the script and substitute these with the values:
+- **routable**
+- **AlmaLinux 10**.
+- **2633**
+
+Save the changes!
 
 # Run the script and verify the execution.
 
-## 7.1.4
+## 8.1.4
 
 Execute the script and provide the credentials in-line.
 
 ```console
-python3 oca.py 'oneadmin' '<PASSWORD>' '127.0.0.1'
+python3 oca.py 'oneadmin' '<PASSWORD>' '<FE IP>'
 ```
 
-Verify that the VM has been deployed and now running.
+Your output must be look like the one below!
 
 ```console
-ID USER     GROUP    NAME                    STAT  CPU     MEM HOST                  TIME
-10 oneadmin oneadmin AlmaLinux 9-10         runn    1    768M 163.172.138.109       0d 00h02
+⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢠⣀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⣉⣙⣷⡦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢤⣴⠖⠛⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣉⠛⠓⠶⢤⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣤⣽⡿⠟⠁⠀⠀⠀⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠉⠙⠛⠷⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                    ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣤⣤⣤⣤⣀⣀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                    ⠀⠀⠀⠀⠀⠀⠀⠀⣀⣀⣤⡶⠶⠛⠉⠉⠉⠉⠁⠀⠀⠀⠀⠉⠙⠿⠓⠒⠶⢺⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                    ⢶⡶⠶⠶⠶⠖⠖⠛⠉⠉⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⡟⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                    ⠘⣧⡀⠀⠀⣀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣼⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                    ⠀⠈⠻⢤⣼⡏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⣏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                    ⠀⠀⠀⠀⢻⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣀⡀⢀⣿⡿⠶⠶⣤⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+                    ⠀⠀⠀⠀⢸⡇⠀⣀⣀⠀⢀⣀⣤⡀⠀⠀⠀⠀⠸⠶⠶⠚⠛⠋⢹⣿⣿⣟⣉⠉⠒⠀⠻⣦⣠⣤⣤⣤⣄⣀⠀⠀
+                    ⠀⢀⣤⢾⣿⣷⣶⡍⠙⠙⠛⠋⠉⠀⠀⢴⡶⠀⠀⠀⠀⢀⣠⡶⠟⠛⠛⣷⠀⠉⠁⠀⠀⠈⣧⡀⠀⠩⣀⠈⢹⣆
+                    ⠀⣠⠔⢉⡴⢿⣿⡟⠛⠛⠛⠶⣤⣀⠀⠀⠀⠀⠀⠀⣴⡿⠋⠀⠀⠀⢀⡉⠀⠀⠀⠀⢀⣼⠛⠛⢛⣿⡿⠀⣾⡟
+                    ⠀⠁⣰⠋⢀⡿⠁⠀⠀⠀⠀⠀⠀⠉⠻⣦⡀⠀⠀⣼⠟⠀⠀⠀⢀⣠⣾⢁⣀⣤⣴⡶⠟⣁⣴⠞⠋⠉⢀⣼⣿⠁
+                    ⠀⠀⠉⠀⠈⠷⣄⡀⠀⠀⠀⠀⠀⠀⠀⠈⢿⡗⠚⡏⠀⢀⣤⡶⠛⠋⠉⠉⠉⠉⠀⣠⣾⠟⢁⣀⣤⣶⣿⠟⠁⠀
+                    ⠀⠀⠀⠀⠀⠀⠀⠈⠉⠑⠲⠤⣄⣦⣤⡴⠞⠁⠀⠉⠙⠉⠁⠀⠀⠀⠀⠀⠀⠀⠀⠹⠿⠾⠾⠟⠛⠁⠀⠀⠀⠀
+                    Taking a short nap...meow...
 ```
 
-Run **onevm show** and verify the persistence of START_SCRIPT and the IP Address to make sure the VM Template was altered.
+## 8.1.5
 
-```console
-onevm show 10
-...
-VM NICS
-ID NETWORK              BRIDGE       IP              MAC               PCI_ID
-0 evpn0                onebr.20     172.17.2.200    02:00:ac:11:02:c8
-...
-CONTEXT=[
-...
-START_SCRIPT_BASE64="ZWNobyAkKGRhdGUpID4+IC9yb290L2RhdGUudHh0Cg=="
-...
-]
-```
-{: .note}
-> Try to connect to the VM using the SSH. Can you tell why it fails? Send a private message with the answer to your trainer.
+Verify tha the VM is in the process of deploying or is already running.
 
 # Congratulations, you've completed the assignment!
 {: .no_toc}
